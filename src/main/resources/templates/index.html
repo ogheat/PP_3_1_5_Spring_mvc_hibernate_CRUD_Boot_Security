@@ -3,6 +3,11 @@
 <head>
     <title>Spring Security Example</title>
 </head>
+<li th:if="${#httpServletRequest.remoteUser != null}">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</li>
 <body>
 <h1>Welcome to Index PAGE!</h1>
 

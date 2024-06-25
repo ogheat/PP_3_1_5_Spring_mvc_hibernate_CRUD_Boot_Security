@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users List</title>
+    <script>
+        function redirectToAddUser() {
+            window.location.href = '/admin/add';
+        }
+    </script>
+</head>
+<li th:if="${#httpServletRequest.remoteUser != null}">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</li>
+<body>
+<h1>Users List</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td>
+            <form th:action="@{/admin/deleteUser}" method="post">
+                <input type="hidden" name="userId" th:value="${user.getId()}"/>
+                <button type="submit">Delete</button>
+            </form>
+            <form th:action="@{/admin/editUser}" method="get">
+                <input type="hidden" name="id" th:value="${user.getId()}"/>
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<button type="button" onclick="redirectToAddUser()">Add User</button>
+</body>
+</html>
