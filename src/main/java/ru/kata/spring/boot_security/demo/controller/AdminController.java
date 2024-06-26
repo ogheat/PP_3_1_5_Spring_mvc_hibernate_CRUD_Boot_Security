@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entity.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import java.util.List;
 public class AdminController {
 
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserServiceImpl userService) {
         this.userService = userService;
     }
 

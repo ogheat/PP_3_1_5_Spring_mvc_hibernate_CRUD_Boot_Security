@@ -14,6 +14,7 @@ public class UserController {
     @RequestMapping(value = "/user")
     public String showUserDetails(Model model, Principal principal) {
         String username = principal.getName();
+        model.addAttribute("username", username);
         return "user.html";
     }
 }
