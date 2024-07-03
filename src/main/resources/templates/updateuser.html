@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Update User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <li th:if="${#httpServletRequest.remoteUser != null}">
     <form th:action="@{/logout}" method="post">
@@ -17,11 +18,16 @@
     <input type="text" id="firstName" name="firstName" th:value="${user.getFirstName()}"><br><br>
     <label for="lastName">Last Name:</label><br>
     <input type="text" id="lastName" name="lastName" th:value="${user.getLastName()}"><br><br>
-    <label for="username">username</label><br>
-    <input type="text" id="username" name="username" th:value="${user.getUsername()}"><br><br>
+    <label for="age">Age:</label><br>
+    <input type="text" id="age" name="age" th:value="${user.getAge()}"><br><br>
+    <label for="email">username</label><br>
+    <input type="text" id="email" name="email" th:value="${user.getEmail()}"><br><br>
     <label for="lastName">password</label><br>
     <input type="password" id="password" name="password" th:value="${user.getPassword()}"><br><br>
     <button type="submit">Submit</button>
 </form>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
