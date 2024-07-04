@@ -1,1 +1,1 @@
-![Demo Video](video.mp4)
+![Demo Video](video.mov)
