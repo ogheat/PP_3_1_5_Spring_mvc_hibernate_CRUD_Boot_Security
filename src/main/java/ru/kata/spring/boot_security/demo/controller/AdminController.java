@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
@@ -57,28 +58,17 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-    @GetMapping("/add")
-    public String addUserForm(Model model) {
-        model.addAttribute("user", new User());
-        return "addnewuser";
-    }
 
     @PostMapping("/addUser")
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam("roles") Collection<Long> roleIds) {
+        userService.saveUserWithRoles(user, roleIds);
         return "redirect:/admin/";
     }
 
-    @GetMapping("/editUser")
-    public String editUserForm(@RequestParam("id") Long id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
-        return "updateuser";
-    }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute User user) {
-        userService.updateUser(user);
+    public String updateUser(@ModelAttribute User user, @RequestParam("roles") Collection<Long> roleIds) {
+        userService.saveUserWithRoles(user, roleIds);
         return "redirect:/admin/";
     }
 }
