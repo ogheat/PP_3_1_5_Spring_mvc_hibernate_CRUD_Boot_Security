@@ -17,6 +17,7 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +69,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
         userRepository.save(user);
         Collection<Role> roles = roleRepository.findAllById(roleIds);
+        Optional<Role> adminRole = roles.stream().filter(role -> "ROLE_ADMIN".equals(role.getRoleName())).findAny();
+        if (adminRole.isPresent()) {
+            Role userRole = roleRepository.findByRoleName("ROLE_USER");
+            if (!roles.contains(userRole)) {
+                roles.add(userRole);
+            }
+        }
         user.setRoles(roles);
         userRepository.save(user);
     }

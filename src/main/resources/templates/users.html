@@ -32,9 +32,10 @@
     <span class="navbar-text font-weight-bold text-white" th:text="${email} "></span>
     <span class="navbar-text text-white">&nbsp; with roles:&nbsp;</span>
     <span class="navbar-text text-white" th:each="role, iter : ${roles}">
-        <span th:text=" ${role.authority}"></span>
-        <span th:if="${not iter.last}">, </span>
-    </span>
+    <span th:text="${#strings.substringAfter(role.authority, 'ROLE_')}"></span>
+    <span th:if="${not iter.last}">,&nbsp;</span>
+</span>
+
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -93,7 +94,7 @@
                             <td th:text="${user.getAge()}"></td>
                             <td>
                             <span th:each="role, iter : ${user.roles}">
-                                <span th:text="${role.roleName}"></span>
+                                <span th:text="${#strings.substringAfter(role.roleName, 'ROLE_')}"></span>
                                 <span th:if="${not iter.last}">,</span>
                             </span>
                             </td>
@@ -268,7 +269,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="font-weight-bold">Password</label>
-                                    <input type="text" class="form-control mx-auto" style="max-width: 300px;"
+                                    <input type="password" class="form-control mx-auto" style="max-width: 300px;"
                                            id="password" name="password" th:value="${user.getPassword()}">
                                 </div>
                                 <div class="form-group">

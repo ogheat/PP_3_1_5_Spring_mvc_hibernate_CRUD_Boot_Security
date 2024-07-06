@@ -9,7 +9,6 @@
             position: fixed;
             background-color: #f8f9fa;
             border-right: 1px solid #dee2e6;
-            padding-top: 20px;
         }
 
         .sidebar .nav-link.active {
@@ -31,12 +30,12 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <span class="navbar-text font-weight-bold text-white" th:text="${email}"></span>
+    <span class="navbar-text font-weight-bold text-white" th:text="${email} "></span>
     <span class="navbar-text text-white">&nbsp; with roles:&nbsp;</span>
     <span class="navbar-text text-white" th:each="role, iter : ${roles}">
-        <span th:text="${role.authority}"></span>
-        <span th:if="${not iter.last}">, </span>
-    </span>
+    <span th:text="${#strings.substringAfter(role.authority, 'ROLE_')}"></span>
+    <span th:if="${not iter.last}">,&nbsp;</span>
+</span>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -48,14 +47,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="sidebar col-md-2">
-            <nav class="nav flex-column">
-                <a class="nav-link active" href="#">User</a>
-            </nav>
             <div sec:authorize="hasRole('ROLE_ADMIN')">
                 <nav class="nav flex-column">
                     <a class="nav-link" href="/admin/">Admin</a>
                 </nav>
             </div>
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="#">User</a>
+            </nav>
         </div>
         <div class="content col-md-10 offset-md-2">
             <h1>User information-page</h1>
@@ -85,7 +84,7 @@
                             <td th:text="${user.getAge()}"></td>
                             <td>
                                 <span th:each="role, iter : ${user.roles}">
-                                    <span th:text="${role.roleName}"></span>
+                                    <span th:text="${#strings.substringAfter(role.roleName, 'ROLE_')}"></span>
                                     <span th:if="${not iter.last}">, </span>
                                 </span>
                             </td>
