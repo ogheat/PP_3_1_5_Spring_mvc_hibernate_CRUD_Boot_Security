@@ -11,6 +11,7 @@ import ru.kata.spring.boot_security.demo.service.RoleConverter;
 public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private RoleConverter roleConverter;
+
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/user").setViewName("user");
     }

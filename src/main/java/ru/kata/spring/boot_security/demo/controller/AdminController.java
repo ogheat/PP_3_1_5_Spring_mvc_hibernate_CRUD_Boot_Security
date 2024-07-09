@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
+import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
@@ -22,10 +23,10 @@ import java.util.List;
 public class AdminController {
 
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
-    public AdminController(UserServiceImpl userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
