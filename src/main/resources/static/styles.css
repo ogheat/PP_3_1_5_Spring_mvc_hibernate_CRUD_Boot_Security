@@ -1,0 +1,9 @@
+.sidebar .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.sidebar {
+    padding-top: 10px;
+}
+
