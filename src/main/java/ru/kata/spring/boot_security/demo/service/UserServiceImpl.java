@@ -91,13 +91,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 
     public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!PasswordUtil.isPasswordEncoded(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
 
 
     public void updateUser(User user) {
-        if (!user.getPassword().startsWith("$2a$12$")) {
+        if (!PasswordUtil.isPasswordEncoded(user.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userRepository.save(user);

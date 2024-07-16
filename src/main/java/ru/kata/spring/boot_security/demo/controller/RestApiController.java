@@ -3,10 +3,17 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 @RestController()
@@ -20,10 +27,12 @@ public class RestApiController {
         this.userService = userService;
     }
 
+
     @GetMapping("/all")
     public List<User> showAllUsers() {
         return userService.getUsers();
     }
+
 
     @GetMapping("/user/{id}")
     public User showUser(@PathVariable Long id) {
@@ -38,7 +47,7 @@ public class RestApiController {
 
     @PostMapping("/user/edit")
     public ResponseEntity<String> editUser(@RequestBody User user) {
-        userService.saveUser(user);
+        userService.updateUser(user);
         return new ResponseEntity<>("User edited successfully", HttpStatus.OK);
     }
 
