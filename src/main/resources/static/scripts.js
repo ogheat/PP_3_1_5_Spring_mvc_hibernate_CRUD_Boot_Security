@@ -10,7 +10,7 @@ function hideAddUserModal() {
 
 async function getUser(id) {
     try {
-        const response = await fetch(`http://localhost:8080/api/user/${id}`);
+        const response = await fetch(`http://localhost:8080/admin/user/${id}`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -35,7 +35,7 @@ async function getUser(id) {
 
 async function fetchUsers() {
     try {
-        const response = await fetch('http://localhost:8080/api/all');
+        const response = await fetch('http://localhost:8080/admin/all');
         const users = await response.json();
         populateTable(users);
     } catch (error) {
@@ -45,7 +45,7 @@ async function fetchUsers() {
 
 async function fetchUsers() {
     try {
-        const response = await fetch('http://localhost:8080/api/all');
+        const response = await fetch('http://localhost:8080/admin/all');
         const users = await response.json();
         populateTable(users);
     } catch (error) {
@@ -82,7 +82,7 @@ function populateTable(users) {
 }
 
 function openDeleteModal(userId) {
-    fetch(`/api/user/${userId}`)
+    fetch(`/admin/user/${userId}`)
         .then(response => response.json())
         .then(user => {
             console.log(user);
@@ -99,7 +99,7 @@ function openDeleteModal(userId) {
 }
 
 function deleteUser(userId) {
-    fetch(`/api/user/delete/${userId}`, {
+    fetch(`/admin/user/delete/${userId}`, {
         method: 'DELETE'
     })
         .then(response => {
@@ -114,7 +114,7 @@ function deleteUser(userId) {
 }
 
 function openEditModal(userId) {
-    fetch(`/api/user/${userId}`)
+    fetch(`/admin/user/${userId}`)
         .then(response => response.json())
         .then(user => {
             console.log(user);
@@ -159,7 +159,7 @@ function editUser(user) {
     console.log("JSON VIEW")
     console.log(selectedRoles)
     console.log(JSON.stringify(updatedUser))
-    fetch(`/api/user/edit/`, {
+    fetch(`/admin/user/edit/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -205,7 +205,7 @@ function addNewUser() {
 
     console.log(user);
 
-    fetch("/api/user/add/", {
+    fetch("/admin/user/add/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

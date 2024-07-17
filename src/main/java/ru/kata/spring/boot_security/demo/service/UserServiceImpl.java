@@ -2,8 +2,10 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +23,7 @@ import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
@@ -77,6 +79,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
         user.setRoles(roles);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public boolean isUserIdMatches(Long userId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User currentUser = findByEmail(currentUsername);
+        return currentUser.getId().equals(userId);
     }
 
 

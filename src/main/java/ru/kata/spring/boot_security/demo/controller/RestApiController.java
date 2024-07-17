@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api")
+@RequestMapping("/admin")
 public class RestApiController {
 
     private UserService userService;
@@ -27,6 +27,18 @@ public class RestApiController {
         this.userService = userService;
     }
 
+    @GetMapping(value = "/")
+    public ModelAndView showUsers(ModelMap model, Principal principal) {
+        Authentication authentication = (Authentication) principal;
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String email = principal.getName();
+        List<User> users;
+        users = userService.getUsers();
+        model.addAttribute("users", users);
+        model.addAttribute("email", email);
+        model.addAttribute("roles", authorities);
+        return new ModelAndView("users");
+    }
 
     @GetMapping("/all")
     public List<User> showAllUsers() {
@@ -35,6 +47,7 @@ public class RestApiController {
 
 
     @GetMapping("/user/{id}")
+    @PreAuthorize("@userService.isUserIdMatches(#id) or hasRole('ADMIN')")
     public User showUser(@PathVariable Long id) {
         return userService.getUserById(id);
     }
