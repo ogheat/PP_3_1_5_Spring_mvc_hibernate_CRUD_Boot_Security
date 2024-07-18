@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,@Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -79,14 +79,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
         user.setRoles(roles);
         userRepository.save(user);
-    }
-
-    @Transactional
-    public boolean isUserIdMatches(Long userId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName();
-        User currentUser = findByEmail(currentUsername);
-        return currentUser.getId().equals(userId);
     }
 
 

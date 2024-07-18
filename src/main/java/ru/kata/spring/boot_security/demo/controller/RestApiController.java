@@ -46,12 +46,6 @@ public class RestApiController {
     }
 
 
-    @GetMapping("/user/{id}")
-    @PreAuthorize("@userService.isUserIdMatches(#id) or hasRole('ADMIN')")
-    public User showUser(@PathVariable Long id) {
-        return userService.getUserById(id);
-    }
-
     @PostMapping("/user/add")
     public ResponseEntity<String> addUser(@RequestBody User user) {
         userService.saveUser(user);

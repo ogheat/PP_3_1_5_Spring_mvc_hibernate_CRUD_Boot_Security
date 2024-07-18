@@ -21,5 +21,4 @@ public interface UserService {
     public void deleteUser(Long id);
 
     public void saveUserWithRoles(User user, Collection<Long> roleIds);
-    public boolean isUserIdMatches(Long userId);
 }

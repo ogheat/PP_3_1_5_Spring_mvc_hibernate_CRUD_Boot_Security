@@ -10,7 +10,7 @@ function hideAddUserModal() {
 
 async function getUser(id) {
     try {
-        const response = await fetch(`http://localhost:8080/admin/user/${id}`);
+        const response = await fetch(`http://localhost:8080/user/${id}`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
