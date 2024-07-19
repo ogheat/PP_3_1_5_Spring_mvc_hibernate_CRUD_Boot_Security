@@ -82,7 +82,7 @@ function populateTable(users) {
 }
 
 function openDeleteModal(userId) {
-    fetch(`/admin/user/${userId}`)
+    fetch(`/user/${userId}`)
         .then(response => response.json())
         .then(user => {
             console.log(user);
@@ -114,7 +114,7 @@ function deleteUser(userId) {
 }
 
 function openEditModal(userId) {
-    fetch(`/admin/user/${userId}`)
+    fetch(`/user/${userId}`)
         .then(response => response.json())
         .then(user => {
             console.log(user);

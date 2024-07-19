@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -16,6 +13,7 @@ import java.security.Principal;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("/user")
 public class UserRestController {
     private UserService userService;
 
@@ -24,7 +22,7 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/user")
+    @RequestMapping(value = "")
     public ModelAndView showUserDetails(Model model, Principal principal) {
         Authentication authentication = (Authentication) principal;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -36,7 +34,7 @@ public class UserRestController {
         return new ModelAndView("user.html");
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User showUser(@PathVariable Long id) {
         return userService.getUserById(id);
     }
